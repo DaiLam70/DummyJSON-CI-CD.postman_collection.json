@@ -1,25 +1,21 @@
-name: Run Postman Tests (DummyJSON)
+name: Run Postman Collection with Newman
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: [push]
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install Newman
         run: npm install -g newman
 
-      - name: Run DummyJSON Collection
+      - name: Run Postman Tests
         run: newman run DummyJSON-CI-CD.postman_collection.json -e DummyJSON.postman_environment.json
